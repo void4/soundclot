@@ -1,7 +1,7 @@
 <head>
   <title>SoundClot</title>
-  <link rel="icon" href="static/favicon.png"> 
-  
+  <link rel="icon" href="static/favicon.png">
+
 <!-- Google Analytics -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -14,7 +14,7 @@ ga('send', 'pageview');
 </script>
 <!-- End Google Analytics -->
 
-  
+
 </head>
 
 <style>
@@ -32,19 +32,21 @@ body {
 <img src="static/clot.png">
 <br>
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NLqKctL90R0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/DG31EgK74fs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/QuFTCirwmoM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/X2WH8mHJnhM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Uje5cs6nIdc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/PzpQWj_YlmM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br>
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/43TXt9aTdTg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/XCawU6BE8P8?start=27" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8ImNMHoOYWY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZE4shVkwqIk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% for video in videos %}
+
+<iframe
+width="560"
+height="315"
+src="https://www.youtube-nocookie.com/embed/{{ video }}"
+srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/{{ video }}?autoplay=1><img src=https://img.youtube.com/vi/{{ video }}/hqdefault.jpg alt='Music'><span>▶</span></a>"
+frameborder="0"
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen
+title="Music"
+></iframe>
+
+{% endfor %}
+
 <br>
 <br>
 <a href="mailto: pipe@soundclot.com">Submit something</a>

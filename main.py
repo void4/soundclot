@@ -9,7 +9,9 @@ dashboard.bind(app)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
-	return render_template("index.html")
+	with open("videos.txt") as f:
+		videos = f.read().splitlines()
+	return render_template("index.html", videos=videos)
 
 PORT = 8000
 
