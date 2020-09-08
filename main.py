@@ -1,5 +1,6 @@
 from flask import Flask, redirect, request, render_template
 import flask_monitoringdashboard as dashboard
+from random import shuffle
 
 app = Flask(__name__)
 
@@ -11,6 +12,7 @@ dashboard.bind(app)
 def index(path):
 	with open("videos.txt") as f:
 		videos = f.read().splitlines()
+	shuffle(videos)	
 	return render_template("index.html", videos=videos)
 
 PORT = 8000
