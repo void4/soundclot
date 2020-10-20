@@ -8,13 +8,22 @@ app = Flask(__name__)
 dashboard.config.init_from(file="config.cfg")
 dashboard.bind(app)
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def index(path):
+def getVideos():
 	with open("videos.txt") as f:
 		videos = f.read().splitlines()
 	shuffle(videos)
-	return render_template("index.html", videos=videos)
+	return videos
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+	videos = getVideos()[:1]
+	return render_template("all.html", videos=videos)
+
+@app.route('/all')
+def allsongs():
+	videos = getVideos()
+	return render_template("all.html", videos=videos)
 
 @app.route("/submit", methods=["POST"])
 def submit():

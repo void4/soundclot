@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>SoundClot</title>
+  <title>{% block title %}{% endblock %} - SoundClot</title>
   <link rel="icon" href="static/favicon.png">
   <meta name="viewport" content="width=580">
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -27,27 +27,27 @@ body {
 	transform: rotate(45deg);
 }
 
+.header {
+  font-size:0;
+}
+
+a img {
+  border: 0;
+  display: inline-block;
+  white-space: nowrap;
+}
+
 </style>
 
-<a href="/">
-	<img src="static/clot.png">
-</a>
+<div class="header">
+  <a href="/"><img src="static/clot.png"></a>
+  <a href="/all"><img src="static/all.png"></a>
+  <a href="/"><img src="static/one.png"></a>
+</div>
+
 <br>
 
-{% for video in videos %}
-
-<iframe
-width="560"
-height="315"
-src="https://www.youtube-nocookie.com/embed/{{ video }}"
-srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/{{ video }}?autoplay=1><img src=https://img.youtube.com/vi/{{ video }}/hqdefault.jpg alt='Music'><span>▶</span></a>"
-frameborder="0"
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen
-title="Music"
-></iframe>
-
-{% endfor %}
+{% block content %}{% endblock %}
 
 <br>
 <br>
