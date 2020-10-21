@@ -25,6 +25,10 @@ def allsongs():
 	videos = getVideos()
 	return render_template("all.html", videos=videos)
 
+@app.route('/dance')
+def dance():
+	return render_template("dance.html")
+
 @app.route("/submit", methods=["POST"])
 def submit():
 	#os.makedirs("feedback", exist_ok=True)
@@ -39,4 +43,4 @@ def submit():
 PORT = 8000
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=PORT)
+	app.run(host='0.0.0.0', port=PORT, debug=True)

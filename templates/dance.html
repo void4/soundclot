@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Dance{% endblock %}
+
+{% block content %}
+
+<style>
+.hidden {
+  max-width: 50px;
+  max-height: 50px;
+  display: none;
+}
+
+html, body {
+  min-height: 100vh;
+  background-color: darkblue;
+}
+
+.dancefloor {
+  min-width: 95%;
+  min-height: 95%;
+  background-color: gray;
+  height: 512px;
+  background-image: url("static/dancefloor.png");
+  background-size: 200px 200px;
+}
+
+.cursor {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
+  background-color: black;
+  pointer-events:none;
+  /*-webkit-transition: left 0.3s 0.1s ease-out;*/
+}
+</style>
+
+<div class="hidden">
+<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/343898566&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/persesthetitan" title="PERSES" target="_blank" style="color: #cccccc; text-decoration: none;">PERSES</a> · <a href="https://soundcloud.com/persesthetitan/humble-crystalize-remix" title="Kendrick Lamar x Skrillex - Humble (Crystalize Remix)" target="_blank" style="color: #cccccc; text-decoration: none;">Kendrick Lamar x Skrillex - Humble (Crystalize Remix)</a></div>
+</div>
+
+<div id="outfit">
+  Choose outfit
+  <button onclick="dance()">Dance</button>
+</div>
+
+<div id="cursor" class="cursor">
+Test
+</div>
+
+<div id="dancefloor" class="dancefloor">
+
+</div>
+
+<script src="static/api.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" charset="utf-8">
+
+var socket = io(":1338");
+socket.on('connect', function() {
+    socket.emit('my event', {data: 'I\'m connected!'});
+});
+
+socket.on("json", function(packet) {
+  console.log("received", packet);
+  var type = packet.type
+  var data = packet.data
+
+  if (type == "user") {
+    if (!players.hasOwnProperty(data.uid)) {
+      let uel = document.createElement("div")
+      uel.classList.add("cursor");
+      document.body.appendChild(uel)
+      players[data.uid] = {x:data.x,y:data.y,el:uel}
+    } else {
+      var player = players[data.uid]
+      player.x = data.x
+      player.y = data.y
+      player.el.style.left = data.x + "px"
+      player.el.style.top = data.y + "px"
+    }
+  } else if (type == "logout") {
+    players[data.uid].el.remove()
+    delete players[data.uid]
+  }
+});
+
+function send(type, data) {
+  socket.emit('json', {type, data});
+}
+
+players = {}
+
+var iframeElement = document.querySelector('iframe');
+var widget = SC.Widget(iframeElement);
+
+var dancefloor = document.querySelector("#dancefloor")
+var cursor = document.querySelector("#cursor")
+
+function dance() {
+  dancefloor.style.cursor = 'none';
+  widget.play();
+  widget.setVolume(8)
+}
+
+dancefloor.addEventListener('mouseenter', e => {
+  dancefloor.style.border = '5px dotted orange';
+  //widget.play();
+  widget.setVolume(100)
+});
+
+dancefloor.addEventListener('mouseleave', e => {
+  dancefloor.style.border = '1px solid #333';
+  //widget.pause();
+  widget.setVolume(5)
+});
+
+
+
+document.onmousemove = function(e){
+  var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+  console.log(pageCoords);
+  send("user", {x:e.pageX, y:e.pageY})
+  cursor.style.left = e.pageX + "px"
+  cursor.style.top = e.pageY + "px"
+
+};
+
+window.onunload=function(){
+  //SomeJavaScriptCode
+};
+
+</script>
+
+{% endblock %}
