@@ -29,12 +29,12 @@ def handle_message(message):
     print('received message: ' + message)
 
 def send(typ, data, *args, **kwargs):
-    print("sending", typ, data)
+    #print("sending", typ, data)
     emit("json", {"type":typ, "data":data}, *args, **kwargs)
 
 @socketio.on('json')
 def handle_json(json):
-    print('received json: ' + str(json))
+    #print('received json: ' + str(json))
     typ, data = json["type"], json["data"]
 
     if typ == "user":
