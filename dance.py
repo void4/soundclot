@@ -36,7 +36,7 @@ def handle_json(json):
     typ, data = json["type"], json["data"]
 
     if typ == "user":
-        send("user", {"id":session["uid"], "x":data["x"], "y":data["y"]}, broadcast=True)
+        send("user", {"id":session["uid"], "x":data["x"], "y":data["y"]}, broadcast=True, include_self=False)
 
 if __name__ == '__main__':
     socketio.run(app, port=1338)

@@ -19,7 +19,6 @@ html, body {
 .dancefloor {
   min-width: 95%;
   min-height: 95%;
-  background-color: gray;
   height: 512px;
   background-image: url("static/dancefloor.png");
   background-size: 200px 200px;
@@ -31,7 +30,7 @@ html, body {
   height: 25px;
   min-width: 25px;
   min-height: 25px;
-  background-color: black;
+  background-image: url("static/cursor.png");
   pointer-events:none;
   /*-webkit-transition: left 0.3s 0.1s ease-out;*/
 }
@@ -43,11 +42,10 @@ html, body {
 
 <div id="outfit">
   Choose outfit
-  <button onclick="dance()">Dance</button>
+  <button onclick="dance()">Dance</button><!--Turn on the lights!-->
 </div>
 
 <div id="cursor" class="cursor">
-Test
 </div>
 
 <div id="dancefloor" class="dancefloor">
