@@ -42,7 +42,7 @@ html, body {
 
 <div id="outfit">
   Choose outfit
-  <button onclick="dance()">Dance</button><!--Turn on the lights!-->
+  <button onclick="dance()">Dance/Sync</button><!--Turn on the lights!-->
 </div>
 
 <div id="cursor" class="cursor">
@@ -104,8 +104,13 @@ var cursor = document.querySelector("#cursor")
 
 function dance() {
   dancefloor.style.cursor = 'none';
-  widget.play();
-  widget.setVolume(8)
+  widget.isPaused(function(paused) {
+    if (paused) {
+      widget.play();
+      widget.setVolume(8)
+    }
+  })
+
   send("sync", {})
 }
 
