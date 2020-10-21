@@ -58,7 +58,7 @@ html, body {
 
 <script type="text/javascript" charset="utf-8">
 
-var socket = io(":1338");
+var socket = window.location.host != "0.0.0.0:8000" ? io() : io(":1338");
 socket.on('connect', function() {
     socket.emit('my event', {data: 'I\'m connected!'});
 });
