@@ -1,6 +1,8 @@
 from flask import Flask, render_template, session
 from flask_socketio import SocketIO, emit
 
+from tracks import getCurrentTrack
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -20,7 +22,7 @@ def test_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
-    send("logout", {"id":session["uid"]}, broadcast=True)
+    send("logout", {"uid":session["uid"]}, broadcast=True)
 
 @socketio.on('message')
 def handle_message(message):
@@ -36,7 +38,10 @@ def handle_json(json):
     typ, data = json["type"], json["data"]
 
     if typ == "user":
-        send("user", {"id":session["uid"], "x":data["x"], "y":data["y"]}, broadcast=True, include_self=False)
+        send("user", {"uid":session["uid"], "x":data["x"], "y":data["y"]}, broadcast=True, include_self=False)
+    elif typ == "sync":
+        index, millis = getCurrentTrack()
+        send("seek", {"index":index, "millis":millis})
 
 if __name__ == '__main__':
     socketio.run(app, port=1338)
