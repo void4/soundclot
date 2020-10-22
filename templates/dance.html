@@ -12,6 +12,7 @@
 }
 
 html, body {
+  overflow: hidden;
   min-height: 100vh;
   background-color: darkblue;
 }
@@ -20,7 +21,8 @@ html, body {
   min-width: 95%;
   min-height: 95%;
   height: 512px;
-  background-image: url("static/dancefloor.png");
+  background-color: darkgray;
+  background-image: url("static/darkdancefloor.png");
   background-size: 200px 200px;
 }
 
@@ -108,6 +110,7 @@ function dance() {
     if (paused) {
       widget.play();
       widget.setVolume(8)
+      dancefloor.style.backgroundImage = "url('static/dancefloor.png')"
     }
   })
 
