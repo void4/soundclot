@@ -110,10 +110,10 @@ function dance() {
     if (paused) {
       widget.play();
       widget.setVolume(8)
-      dancefloor.style.backgroundImage = "url('static/dancefloor.png')"
     }
   })
 
+  dancefloor.style.backgroundImage = "url('static/dancefloor.png')"
   send("sync", {})
 }
 
