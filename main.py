@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, render_template, url_for
 import flask_monitoringdashboard as dashboard
-from random import shuffle
+from random import choice, shuffle
 import os
 
 app = Flask(__name__)
@@ -11,13 +11,13 @@ dashboard.bind(app)
 def getVideos():
 	with open("videos.txt") as f:
 		videos = f.read().splitlines()
-	shuffle(videos)
+	#shuffle(videos)
 	return videos
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
-	videos = getVideos()[:1]
+	videos = [choice(getVideos())]
 	return render_template("all.html", videos=videos)
 
 @app.route('/all')
