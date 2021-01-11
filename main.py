@@ -22,7 +22,7 @@ def index(path):
 
 @app.route('/all')
 def allsongs():
-	videos = getVideos()
+	videos = getVideos()[::-1]
 	return render_template("all.html", videos=videos)
 
 @app.route('/dance')
