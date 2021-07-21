@@ -15,7 +15,7 @@
         package = with pkgs; callPackage ./. { inherit pkgs; };
       in {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ ];
+          buildInputs = with pkgs; [ (python3.withPackages (python-packages: with python-packages; [ flask flask-socketio ])) ];
         };
         defaultPackage = package;
       });

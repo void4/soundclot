@@ -1,12 +1,8 @@
 from flask import Flask, redirect, request, render_template, url_for
-import flask_monitoringdashboard as dashboard
 from random import choice, shuffle
 import os
 
 app = Flask(__name__)
-
-dashboard.config.init_from(file="config.cfg")
-dashboard.bind(app)
 
 def getVideos():
 	with open("videos.txt") as f:
